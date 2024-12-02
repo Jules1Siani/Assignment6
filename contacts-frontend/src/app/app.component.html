@@ -1,0 +1,61 @@
+<div class="container">
+  <h1>Contact Management</h1>
+
+  <!-- List of contact -->
+  <div *ngFor="let contact of contacts" class="contact-item">
+    <p>{{ contact.name }} - {{ contact.phone }}</p>
+    <img 
+      *ngIf="contact.profile_picture" 
+      [src]="'http://localhost/Assignment6/contacts_backend/uploads/' + contact.profile_picture" 
+      alt="Profile" 
+      width="50" />
+    <button (click)="enableEdit(contact)">Edit</button>
+    <button (click)="deleteContact(contact.id)">Delete</button>
+  </div>
+
+  <!-- Editing contact Form -->
+  <div *ngIf="editContact" class="edit-form">
+    <h3>Edit Contact</h3>
+    <form (ngSubmit)="updateContact()">
+      <input 
+        type="text" 
+        [(ngModel)]="editContact.name" 
+        name="editName" 
+        placeholder="Name" 
+        required />
+      <input 
+        type="text" 
+        [(ngModel)]="editContact.phone" 
+        name="editPhone" 
+        placeholder="Phone" 
+        required />
+      <input 
+        type="file" 
+        (change)="onFileSelected($event)" />
+      <button type="submit">Save</button>
+    </form>
+  </div>
+
+  <!-- Form to add new contact -->
+  <div class="add-form">
+    <h3>Add New Contact</h3>
+    <form (ngSubmit)="addContact()">
+      <input 
+        type="text" 
+        [(ngModel)]="newContact.name" 
+        name="addName" 
+        placeholder="Name" 
+        required />
+      <input 
+        type="text" 
+        [(ngModel)]="newContact.phone" 
+        name="addPhone" 
+        placeholder="Phone" 
+        required />
+      <input 
+        type="file" 
+        (change)="onFileSelected($event)" />
+      <button type="submit">Add Contact</button>
+    </form>
+  </div>
+</div>
